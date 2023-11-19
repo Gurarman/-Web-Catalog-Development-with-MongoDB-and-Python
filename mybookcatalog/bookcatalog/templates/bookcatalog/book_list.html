@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Catalog</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for star icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .card {
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: solid white
+        }
+        .card-columns {
+            
+        }
+        .list-view {
+        
+        }
+        .list-view table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .list-view th, .list-view td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4 text-center">Books</h1>
+        <button id="toggleView" class="btn btn-primary mb-3">Toggle View</button>
+
+        <!-- List View -->
+        <div class="list-view">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>Publish Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                        <tr>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.isbn }}</td>
+                            <td>{{ book.publish_date }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="4">No books available.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="card-columns">
+            {% for book in books %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text">{{ book.description }}</p>
+                        <p class="card-text">{{ book.author }}</p>
+                        <p class="card-text"><small class="text-muted">Published: {{ book.publish_date }}</small></p>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No books available.</p>
+            {% endfor %}
+        </div>
+
+        
+
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var cardView = document.querySelector('.card-columns');
+            var listView = document.querySelector('.list-view');
+        
+            // Initially hide the list view
+            listView.style.display = 'none';
+        
+            document.getElementById('toggleView').addEventListener('click', function() {
+                console.log('Before toggle - Card View:', cardView.style.display, 'List View:', listView.style.display);
+                // Check if card view is currently visible
+                if (cardView.style.display !== 'none') {
+                    // Hide card view and show list view
+                    cardView.style.display = 'none';
+                    listView.style.display = '';
+                } else {
+                    // Hide list view and show card view
+                    cardView.style.display = '';
+                    listView.style.display = 'none';
+                }
+                console.log('After toggle - Card View:', cardView.style.display, 'List View:', listView.style.display);
+            });
+        });
+        
+    </script>
+    
+</body>
+</html>
