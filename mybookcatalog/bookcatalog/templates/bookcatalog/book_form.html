@@ -1,3 +1,4 @@
+<!-- book_form.html -->
 <html>
     <head>
         <title>Book Catalog</title>
@@ -5,11 +6,12 @@
 
     <body>
         <h2>Add Book</h2>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Save</button>
         </form>
+
 
     </body>
     </html>

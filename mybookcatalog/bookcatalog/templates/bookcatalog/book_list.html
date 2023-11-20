@@ -11,20 +11,47 @@
     <style>
         body {
             padding-top: 20px;
-            background-color: #f4f4f4;
+            background-color: #e3f2fd; /* Adjusted to a light blue to match the image */
+            color: #333; /* Dark grey text color */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More modern font */
         }
         .container {
             max-width: 1200px;
+            background-color: #fff; /* Card background */
+            border-radius: 5px; /* Rounded corners for card */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for card */
+            padding: 20px;
         }
         .card {
             padding: 10px;
-            background-color: #333;
-            color: #fff;
-            border: solid white
+            background-color: #fff; /* Cards are white, not dark */
+            color: #333; /* Text is dark grey */
+            border: none; /* No border for a cleaner look */
+            border-radius: 5px; /* Match container border-radius */
+            margin-bottom: 10px; /* Space between cards */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
         }
-        .card-columns {
-            
+        .card .card-title {
+            color: #0056b3; /* Title color to match image theme */
         }
+
+        .nav-bar {
+            background-color: #ffffff; /* Light background for the nav */
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .nav-item {
+            display: inline;
+            margin-right: 15px;
+            font-weight: bold;
+            color: #0056b3; /* Matching the book titles */
+        }
+        .nav-item a {
+            text-decoration: none;
+            color: inherit;
+        }
+
         .list-view {
         
         }
@@ -37,9 +64,21 @@
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+
+        @media (max-width: 768px) {
+        }
     </style>
 </head>
 <body>
+    <div class="nav-bar">
+        <!-- Navigation items -->
+        <span class="nav-item"><a href="#">Home</a></span>
+        <span class="nav-item"><a href="#">Catalog</a></span>
+        <span class="nav-item"><a href="#">New Arrivals</a></span>
+        <span class="nav-item"><a href="#">Best Sellers</a></span>
+        <span class="nav-item"><a href="#">Contact</a></span>
+    </div>
+    
     <div class="container">
         <h1 class="mb-4 text-center">Books</h1>
         <button id="toggleView" class="btn btn-primary mb-3">Toggle View</button>
@@ -70,9 +109,11 @@
             </table>
         </div>
         
-        <div class="card-columns">
+        <div class="row">
             {% for book in books %}
+            <div class="col-md-4 mb-4">
                 <div class="card">
+                    <img src="{{ book.cover_image.url }}" class="card-img-top" alt="{{ book.title }} Cover Image">
                     <div class="card-body">
                         <h5 class="card-title">{{ book.title }}</h5>
                         <p class="card-text">{{ book.description }}</p>
@@ -80,22 +121,20 @@
                         <p class="card-text"><small class="text-muted">Published: {{ book.publish_date }}</small></p>
                     </div>
                 </div>
+            </div>
             {% empty %}
                 <p>No books available.</p>
             {% endfor %}
         </div>
-
-        
-
     </div>
-    <!-- Bootstrap JS -->
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
-            var cardView = document.querySelector('.card-columns');
+            var cardView = document.querySelector('.row');
             var listView = document.querySelector('.list-view');
         
             // Initially hide the list view
@@ -118,6 +157,7 @@
         });
         
     </script>
-    
 </body>
 </html>
+
+
